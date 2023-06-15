@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { limiter } from "./utils/rateLimiter.js";
-import { PORT, DATA_BASE } from "./config.js";
+import { PORT, DATA_BASE, MONGODB_URL } from "./config.js";
 import { router } from "./routers/index.js";
 import { corsOptions } from "./middlewares/corsOptions.js";
 import dotenv from "dotenv";
