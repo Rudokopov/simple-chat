@@ -1,5 +1,6 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
+  "https://simple-chat-tan.vercel.app",
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3002",

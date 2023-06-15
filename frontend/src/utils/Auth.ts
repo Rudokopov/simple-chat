@@ -1,6 +1,6 @@
 // auth.js
 
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://simple-chat-dsgn.onrender.com";
 
 export const checkStatus = (res: Response) => {
   if (res.ok) {

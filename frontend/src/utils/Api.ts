@@ -79,7 +79,7 @@ class Api {
 
 const apiOptions: ApiOptions = {
   jwt: localStorage.getItem("jwt"),
-  url: "http://localhost:3001",
+  url: "https://simple-chat-dsgn.onrender.com",
   headers: {
     authorization: localStorage.getItem("jwt") || "",
     "Content-Type": "application/json",
