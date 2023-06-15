@@ -1,19 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
+import { limiter } from "./utils/rateLimiter.js";
+import { PORT, DATA_BASE } from "./config.js";
 import { router } from "./routers/index.js";
+import { corsOptions } from "./middlewares/corsOptions.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-const { PORT = 3001 } = process.env;
-
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => console.log("db OK"))
-  .catch((err) => console.log(err));
-
 const app = express();
 
+mongoose.connect(DATA_BASE);
+
 app.use(express.json());
+app.use(cors(corsOptions));
+app.use(limiter);
 app.use(router);
 
 app.listen(PORT, (err) => {

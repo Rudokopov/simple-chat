@@ -4,7 +4,7 @@ const MessageSchema = mongoose.Schema({
   text: {
     type: String,
     required: true,
-    minLength: 5,
+    minLength: 1,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import UserSchema from "../models/user.js";
+import User from "../models/user.js";
+import { NotFound } from "../customErrors/customErrors.js";
 
 const register = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const doc = new UserSchema({
+    const doc = new User({
       email: req.body.email,
       name: req.body.name,
       passwordHash: hash,
@@ -42,7 +43,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const user = await UserSchema.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
       return req.status(404).json({ message: "Пользователь не найден" });
@@ -80,4 +81,28 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+const getUserMe = async (req, res, next) => {
+  try {
+    const id = req.userId;
+    // const { id } = req.params
+    const response = await User.findById(id);
+    if (!response) {
+      throw new NotFound("Пользователь с похожим id не найден");
+    }
+    res.send(response);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getUsers = async (req, res, next) => {
+  try {
+    const response = await User.find({}).select("-passwordHash");
+
+    res.send(response);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export { register, login, getUserMe, getUsers };
