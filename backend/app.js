@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 
-mongoose.connect(DATA_BASE);
+mongoose.connect(MONGODB_URL);
 
 app.use(express.json());
 app.use(cors(corsOptions));
